@@ -43,14 +43,14 @@ jobs:
     - name: Install terraform and configure Terraform Enterprise credentials
       uses: hashicorp/setup-terraform@v1
       with:
-        # terraform_version: 0.13
+        terraform_version: 0.13.1
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
         
         # Run static analysis on terraform plan file using terraform-compliance
     - name: Setup Python environment
       uses: actions/setup-python@v2
       with:
-          python-version: '3.7.2' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
     - name: Static analysis
