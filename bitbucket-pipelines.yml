@@ -1,0 +1,55 @@
+# This is a sample build configuration for Go.
+# Check our guides at https://confluence.atlassian.com/x/5Q4SMw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+pipelines:
+  default:
+    - step:
+        image: python:3.7.2
+        name: Static analysis
+        script: # Modify the commands below to build your repository.
+          - apt-get update
+          - apt-get install tree
+          - apt-get install golang-go -y
+          - pip install terraform-compliance
+          - mkdir -p ~/bin
+          - cd ~/bin
+          - export PATH="$PATH:/root/bin"
+          - wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
+          - apt-get update
+          - apt-get install unzip -y
+          - unzip terraform_0.12.26_linux_amd64.zip
+            # Until https://github.com/hashicorp/terraform/issues/21275 is fixed we
+            # need a plugin to authenticate to Terraform Cloud without needing to
+            # create temporary files:
+          - install -d ~/.terraform.d/plugins
+          - cd ~/.terraform.d/plugins && curl -s --fail -LO https://github.com/apparentlymart/terraform-credentials-env/releases/download/v1.0.0/terraform-credentials-env_1.0.0_linux_amd64.zip && unzip terraform-credentials-env_1.0.0_linux_amd64.zip
+          - echo 'credentials_helper "env" {}' > ~/.terraformrc
+          - cd ${BITBUCKET_CLONE_DIR}
+          - export TF_TOKEN_app_terraform_io=`echo $TFE_TOKEN`
+          - make generate-plan
+          - make run-static-tests
+    - step:
+        image: golang:1.13
+        name: Unit tests
+        script: # Modify the commands below to build your repository.
+          - apt-get update
+          - mkdir -p ~/bin
+          - cd ~/bin
+          - export PATH="$PATH:/root/bin"
+          - wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
+          - apt-get update
+          - apt-get install unzip -y
+          - unzip terraform_0.12.26_linux_amd64.zip
+          # Until https://github.com/hashicorp/terraform/issues/21275 is fixed we
+          # need a plugin to authenticate to Terraform Cloud without needing to
+          # create temporary files:
+          - install -d ~/.terraform.d/plugins
+          - cd ~/.terraform.d/plugins && curl -s --fail -LO https://github.com/apparentlymart/terraform-credentials-env/releases/download/v1.0.0/terraform-credentials-env_1.0.0_linux_amd64.zip && unzip terraform-credentials-env_1.0.0_linux_amd64.zip
+          - echo 'credentials_helper "env" {}' > ~/.terraformrc
+          - cd ${BITBUCKET_CLONE_DIR}
+          - export TF_TOKEN_app_terraform_io=`echo $TFE_TOKEN`
+          - go mod init "github.com/aws/aws-sdk-go/aws"
+          - cd ${BITBUCKET_CLONE_DIR}
+          - make run-unit-tests
