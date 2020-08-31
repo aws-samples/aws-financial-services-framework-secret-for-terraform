@@ -55,6 +55,7 @@ jobs:
 
     - name: Static analysis
       run: |
+        pip install terraform-compliance
         make generate-plan
         make run-static-tests
     - name: Unit tests
