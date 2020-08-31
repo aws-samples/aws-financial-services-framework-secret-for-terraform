@@ -17,35 +17,47 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - uses: actions/setup-go@v2
-      with: 
-        go-version: '^1.13.1' # The Go version to download (if necessary) and use.
+    - name: Checkout
+      uses: actions/checkout@v2
 
-    - uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 0.13
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        # Run static analysis on terraform plan file using terraform-compliance
+    - name: Configure AWS credentials for team unit testing account
     - uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.TEST_AWS_REGION }}
 
-    - uses: actions/setup-python@v2
+    - name: Setup GoLang
+      uses: actions/setup-go@v2
+      with: 
+        go-version: '^1.13.1' # The Go version to download (if necessary) and use.
+
+    - name: Install terraform and configure Terraform Enterprise credentials
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.13
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        
+        # Run static analysis on terraform plan file using terraform-compliance
+    - name: Setup Python environment
+      uses: actions/setup-python@v2
       with:
           python-version: '3.7.2' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
-    # - name: Static analysis
-    #   run: |
-    #     make generate-plan
-    #     make run-static-tests
-    # - name: Unit tests
-    #   run: |
-    #     go mod init "github.com/aws/aws-sdk-go/aws"
-    #     make run-unit-tests          
+    - name: Static analysis
+      run: |
+        make generate-plan
+        make run-static-tests
+    - name: Unit tests
+      run: |
+        go mod init "github.com/aws/aws-sdk-go/aws"
+        make run-unit-tests          
