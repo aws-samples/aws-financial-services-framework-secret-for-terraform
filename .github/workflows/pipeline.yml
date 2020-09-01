@@ -28,8 +28,8 @@ jobs:
 
     - name: Content scan
       run: |
-        echo "Installing content scanning utility - `pwd`"
-        apt-get install wget -y
+        echo "Installing content scanning utility"
+        sudo apt-get install wget -y
         wget -v "https://s3.amazonaws.com/viperlight-scanner/latest/.viperlightrc"
         wget -v "https://s3.amazonaws.com/viperlight-scanner/latest/viperlight.zip"
         unzip -q viperlight.zip -d ../viperlight
