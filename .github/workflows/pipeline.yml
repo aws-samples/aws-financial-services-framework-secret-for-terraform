@@ -45,7 +45,8 @@ jobs:
       with:
         terraform_version: 0.13.1
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
+        terraform_wrapper: false
+        
       # Run static analysis on terraform plan file using terraform-compliance
     - name: Setup Python environment
       uses: actions/setup-python@v2
