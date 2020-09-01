@@ -34,6 +34,7 @@ jobs:
         wget -v "https://s3.amazonaws.com/viperlight-scanner/latest/viperlight.zip"
         unzip -q viperlight.zip -d ../viperlight
         rm -r ./viperlight.zip
+        printf "CODE_OF_CONDUCT.md:4\nCONTRIBUTING.md:50\n.github/workflows/pipeline.yml\n" > .viperlightignore
         echo "Content scanning utility installation complete `date`"
         echo "Starting content scanning `date` in `pwd`"
         ../viperlight/bin/viperlight scan
