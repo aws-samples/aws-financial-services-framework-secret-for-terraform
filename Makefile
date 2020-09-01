@@ -13,7 +13,7 @@ generate-plan:
 
 run-static-tests:
 	@echo "Running static analysis"
-	@terraform-compliance --planfile $(EXAMPLES_DIR)/$(PLAN_FILE) --features $(FEATURES_DIR)
+	@terraform-compliance --planfile $(EXAMPLES_DIR)/$(PLAN_FILE) --features $(FEATURES_DIR) --debug
 
 run-unit-tests:
 	@echo "Running unit tests"
