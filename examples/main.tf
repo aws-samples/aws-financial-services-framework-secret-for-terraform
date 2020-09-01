@@ -41,7 +41,7 @@ module "secrets_manager" {
     requirements            = var.requirements
     override_special        = var.override_special
     recovery_window_in_days = var.recovery_window_in_days
-    launch_role             = aws_iam_role.test_launch_role.arn
+    # launch_role             = aws_iam_role.test_launch_role.arn
     aws_profile             = var.aws_profile
 
 }
