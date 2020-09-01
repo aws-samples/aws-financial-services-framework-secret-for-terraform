@@ -9,11 +9,11 @@ PLAN_FILE				= plan.out
 
 generate-plan:
 	@echo "Generating plan"
-	cd $(EXAMPLES_DIR) && terraform init && terraform plan -out=$(EXAMPLES_DIR)/$(PLAN_FILE) --var-file=$(EXAMPLES_DIR)/terraform.tfvars
+	@cd $(EXAMPLES_DIR) && terraform init && terraform plan -out=$(EXAMPLES_DIR)/$(PLAN_FILE) --var-file=$(EXAMPLES_DIR)/terraform.tfvars
 
 run-static-tests:
 	@echo "Running static analysis"
-	cd $(EXAMPLES_DIR) && terraform-compliance --planfile $(EXAMPLES_DIR)/$(PLAN_FILE) --features $(FEATURES_DIR)
+	@terraform-compliance --planfile $(EXAMPLES_DIR)/$(PLAN_FILE) --features $(FEATURES_DIR)
 
 run-unit-tests:
 	@echo "Running unit tests"

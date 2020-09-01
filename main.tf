@@ -1,6 +1,17 @@
 provider "aws" {
-    version = "~> 2.0"
-    region = var.region
+    version = "~> 3.4"
+    region  = var.region
+    profile = "%{ if var.aws_profile != ""}${var.aws_profile}%{ else }%{ endif}"
+    
+    dynamic "assume_role" {
+        # Only assume a role if one was passed in
+        for_each = var.launch_role != "" ? [1] : []
+        content {
+            role_arn     = var.launch_role
+            session_name = "terraform"
+            external_id  = "terraform"
+        }
+    }
 }
 
 provider "random" {
