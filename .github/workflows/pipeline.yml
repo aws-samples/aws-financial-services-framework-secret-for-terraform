@@ -3,16 +3,42 @@
 name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+# events for master, develop, and all git flow feature branches
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master
+      - develop
+      - 'feature/**'
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master
+      - develop
+      - 'feature/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  content-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Content scan
+      run: |
+        echo "Installing content scanning utility - `pwd`"
+        apt-get install wget -y
+        wget -v "https://s3.amazonaws.com/viperlight-scanner/latest/.viperlightrc"
+        wget -v "https://s3.amazonaws.com/viperlight-scanner/latest/viperlight.zip"
+        unzip -q viperlight.zip -d ../viperlight
+        rm -r ./viperlight.zip
+        echo "Content scanning utility installation complete `date`"
+        echo "Starting content scanning `date` in `pwd`"
+        ../viperlight/bin/viperlight scan
+        echo "Completed content scanning `date`"
+          
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
