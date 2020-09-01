@@ -45,7 +45,6 @@ jobs:
       with:
         terraform_version: 0.13.1
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      run: terraform init
 
       # Run static analysis on terraform plan file using terraform-compliance
     - name: Setup Python environment
@@ -54,11 +53,12 @@ jobs:
           python-version: 3.8.1 # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
-    - name: Static analysis
-      run: |
-        pip install terraform-compliance
-        make generate-plan
-        make run-static-tests
+    # - name: Static analysis
+    #   run: |
+    #     pip install terraform-compliance
+    #     make generate-plan
+    #     make run-static-tests
+
     - name: Unit tests
       run: |
         go mod init "github.com/aws/aws-sdk-go/aws"
