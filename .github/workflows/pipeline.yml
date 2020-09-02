@@ -26,7 +26,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Content scan
+    - name: Viperlight scan
       run: |
         echo "Installing content scanning utility"
         sudo apt-get install wget -y

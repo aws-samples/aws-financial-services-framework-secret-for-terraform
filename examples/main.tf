@@ -1,7 +1,7 @@
 provider "aws" {
-    version = "~> 3.4"
-    region  = var.region
-    profile = "%{ if var.aws_profile != ""}${var.aws_profile}%{ else }%{ endif}"
+  version = "~> 3.4"
+  region  = var.region
+  profile = "%{if var.aws_profile != ""}${var.aws_profile}%{else}%{endif}"
 }
 
 data "aws_caller_identity" "current" {}
@@ -29,19 +29,19 @@ data "aws_iam_policy_document" "launch" {
 
 # Associate the policy with the instatiation role
 resource "aws_iam_role_policy" "test_policy" {
-  role      = aws_iam_role.test_launch_role.id
-  policy    = data.aws_iam_policy_document.launch.json
+  role   = aws_iam_role.test_launch_role.id
+  policy = data.aws_iam_policy_document.launch.json
 }
 
 # Create an instance of the module and pass the desired instantiation role
 module "secrets_manager" {
-    source                  = "../"
-    region                  = var.region
-    length                  = var.length
-    requirements            = var.requirements
-    override_special        = var.override_special
-    recovery_window_in_days = var.recovery_window_in_days
-    launch_role             = aws_iam_role.test_launch_role.arn
-    aws_profile             = var.aws_profile
+  source                  = "../"
+  region                  = var.region
+  length                  = var.length
+  requirements            = var.requirements
+  override_special        = var.override_special
+  recovery_window_in_days = var.recovery_window_in_days
+  launch_role             = aws_iam_role.test_launch_role.arn
+  aws_profile             = var.aws_profile
 
 }

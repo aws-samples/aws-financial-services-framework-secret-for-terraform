@@ -1,20 +1,20 @@
 output "region" {
-    value = var.region
+  value = var.region
 }
 
 output "secret_name" {
-    value = module.secrets_manager.secret_name
+  value = module.secrets_manager.secret_name
 }
 
 output "secret_arn" {
-    description = "The arn of the secret."
-    value = module.secrets_manager.secret_arn
+  description = "The arn of the secret."
+  value       = module.secrets_manager.secret_arn
 }
 
 
 output "secret_version_arn" {
-    description = "The ARN of the secret version."
-    value = module.secrets_manager.secret_version_arn
+  description = "The ARN of the secret version."
+  value       = module.secrets_manager.secret_version_arn
 }
 
 output "account_id" {
@@ -30,5 +30,5 @@ output "caller_user" {
 }
 
 output "launch_role_arn" {
-    value = aws_iam_role.test_launch_role.arn
+  value = aws_iam_role.test_launch_role.arn
 }
