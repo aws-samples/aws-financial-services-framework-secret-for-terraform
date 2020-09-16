@@ -1,6 +1,6 @@
 # terraform-aws-fsf-secrets
 
-This module provisions a secrets manager with the kind of defaults that our Financial Services customers regularly request
+This module provisions a secrets manager with the kind of defaults that our financial services customers regularly request
 
 ### Example usage
     provider "aws" {
@@ -81,4 +81,4 @@ Contribution guidelines are currently in development. In the meantime requests c
 
 # License Summary
 
-This sample code is made available under a * license. See the LICENSE file.
+This sample code is made available under a Apache-2.0 license. See the LICENSE file.
