@@ -1,3 +1,7 @@
+# TODO: Prefix enforcement with different policies for prefix
+# TODO: Remove default region
+# IDEA: Port to Terraform 3.0? Add variable validation
+
 provider "aws" {
   version = "~> 3.4"
   region  = var.region
