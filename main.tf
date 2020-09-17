@@ -1,22 +1,5 @@
 # TODO: Prefix enforcement with different policies for prefix
-# TODO: Remove default region
-# IDEA: Port to Terraform 3.0? Add variable validation
 
-provider "aws" {
-  version = "~> 3.4"
-  region  = var.region
-  profile = "%{if var.aws_profile != ""}${var.aws_profile}%{else}%{endif}"
-
-  dynamic "assume_role" {
-    # Only assume a role if one was passed in
-    for_each = var.launch_role != "" ? [1] : []
-    content {
-      role_arn     = var.launch_role
-      session_name = "terraform"
-      external_id  = "terraform"
-    }
-  }
-}
 
 provider "random" {
   version = "~> 2.2.1"

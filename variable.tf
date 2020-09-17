@@ -1,19 +1,3 @@
-variable "region" {
-  type    = string
-  default = "us-east-1"
-}
-
-variable "aws_profile" {
-  type    = string
-  default = "default"
-}
-
-variable "launch_role" {
-  type        = string
-  default     = ""
-  description = "ARN of AWS IAM Role to use to provision this module"
-}
-
 variable "secret_name" {
   type        = string
   default     = "secret_example"

@@ -1,8 +1,3 @@
-output "region" {
-  description = "The region where secret exists."
-  value       = var.region
-}
-
 output "secret_arn" {
   description = "The arn of the secret."
   value       = aws_secretsmanager_secret.secret.arn

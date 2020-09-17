@@ -1,11 +1,6 @@
-variable "region" {
+variable "aws_region" {
   type    = string
-  default = "us-east-1"
-}
-
-variable "aws_profile" {
-  type    = string
-  default = ""
+  default = "us-east-2"
 }
 
 variable "length" {

@@ -42,7 +42,7 @@ func TestFsfSecretsExample(t *testing.T) {
 	})
 
 	test_structure.RunTestStage(t, "test_name", func() {
-		awsRegion := terraform.Output(t, terraformOptions, "region")
+		awsRegion := terraform.Output(t, terraformOptions, "aws_region")
 		sess := session.Must(session.NewSessionWithOptions(session.Options{
 			SharedConfigState: session.SharedConfigEnable,
 			Config:            aws.Config{Region: aws.String(awsRegion)},

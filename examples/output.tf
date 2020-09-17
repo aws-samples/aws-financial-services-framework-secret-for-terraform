@@ -1,5 +1,6 @@
-output "region" {
-  value = var.region
+# Needed for terratest to create session in appropriate region
+output "aws_region" {
+  value = var.aws_region
 }
 
 output "secret_name" {
