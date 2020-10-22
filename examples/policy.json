@@ -1,0 +1,58 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "SecretsmanagerPermissionsManagement",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:DeleteResourcePolicy",
+                "secretsmanager:PutResourcePolicy"
+                        ],
+            "Resource": [
+                "arn:aws:secretsmanager:*:*:secret:*"
+            ]
+        },
+        {
+            "Sid": "SecretsmanagerReadSecret",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:DescribeSecret",
+                "secretsmanager:GetResourcePolicy",
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:ListSecretVersionIds"
+            ],
+            "Resource": [
+                "arn:aws:secretsmanager:*:*:secret:*"
+            ]
+        },
+        {
+            "Sid": "SecretsmanagerWriteSecret",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:CancelRotateSecret",
+                "secretsmanager:CreateSecret",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:PutSecretValue",
+                "secretsmanager:RestoreSecret",
+                "secretsmanager:RotateSecret",
+                "secretsmanager:UpdateSecret",
+                "secretsmanager:UpdateSecretVersionStage"
+            ],
+            "Resource": [
+                "arn:aws:secretsmanager:*:*:secret:*"
+            ]
+        },
+        {
+            "Sid": "SecretsmanagerTaggingSecret",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:TagResource",
+                "secretsmanager:UntagResource"
+            ],
+            "Resource": [
+                "arn:aws:secretsmanager:*:*:secret:*"
+            ]
+        }
+    ]
+}
+
