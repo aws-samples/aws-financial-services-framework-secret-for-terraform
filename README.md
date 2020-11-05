@@ -5,13 +5,13 @@ This module provisions a secrets manager secret with the kind of defaults that o
 ### Example usage #1 - generate a random password with specific complexity requirements and store it in a secret
 
     provider "aws" {
-        version = "~> 2.0"
+        version = "~> 2.7"
         region  = var.region
     }
 
     module "secrets_manager" {
         source                  = "github.com/aws-samples/aws-financial-services-framework-secret-for-terraform"
-        region                  = "us-east-1"
+        region                  = "us-east-2"
         secret_name             = "my_random_password"
         length                  = 40
         requirements            = {
@@ -27,14 +27,14 @@ This module provisions a secrets manager secret with the kind of defaults that o
 ### Example usage #2 - store a set of key / value pairs in a secret
 
     provider "aws" {
-        version = "~> 2.0"
+        version = "~> 2.7"
         region  = var.region
     }
 
     module "secrets_manager" {
         source                  = "github.com/aws-samples/aws-financial-services-framework-secret-for-terraform"
         version                 = "0.0.2"
-        region                  = "us-east-1"
+        region                  = "us-east-2"
         secret_name             = "my_secret_values"
         recovery_window_in_days = 0
         secret_values = {
