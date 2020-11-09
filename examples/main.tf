@@ -3,13 +3,13 @@ data "aws_region" "current" {}
 
 # Default provider - used to create launch role 
 provider "aws" {
-  version = "~> 3.4"
+  version = "~> 2.7"
   region  = var.aws_region
 }
 
 # Provider used to provision module with scoped down permissions
 provider "aws" {
-  version = "~> 3.4"
+  version = "~> 2.7"
   region  = var.aws_region
   alias   = "launch"
   assume_role {
